@@ -62,3 +62,53 @@ const fetchData = async (
 		};	
 	}
 }
+
+const queryFormat: (queryName: string, queryValue: string) => string = (queryName, queryValue) => {
+	const query = `$${queryName}=${queryValue}`;
+	return queryValue ? query : ''
+};
+
+export const fetchBikeStation = async (
+	city: string,
+	top?: string,
+	) => {
+	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
+	const response = await fetchData(`${TOURISM_URL}/v2/Bike/Station/${city}${query}`);
+	return response;
+};
+
+export const fetchBikeAvailability = async (
+	city: string, 
+	top?: string,
+	) => {
+	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
+	const response = await fetchData(`${TOURISM_URL}/v2/Bike/Availability/${city}${query}`);
+	return response;
+};
+
+export const fetchCyclingShape = async (
+	city: string, 
+	top?: string,
+	) => {
+	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
+	const response = await fetchData(`${TOURISM_URL}/v2/Cycling/Shape/${city}${query}`);
+	return response;
+};
+
+export const fetchTourismScenicSpot = async (
+	city?: string, 
+	top?: string,
+	) => {
+	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
+	const response = await fetchData(`${TOURISM_URL}/v2/Tourism/ScenicSpot/${city}${query}`);
+	return response;
+};
+
+export const fetchTourismRestaurant = async (
+	city?: string, 
+	top?: string,
+	) => {
+	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
+	const response = await fetchData(`${TOURISM_URL}/v2/Tourism/Restaurant/${city}${query}`);
+	return response;
+};

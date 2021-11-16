@@ -14,3 +14,7 @@ $viewPoint: (
     @content;
   }
 }
+
+@mixin fontSize($size) {
+  font-size: map-get($font, $size);
+}
