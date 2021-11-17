@@ -4,7 +4,7 @@ export function Footer() {
 	const year = new Date().getFullYear();
 	return (
 		<footer>
-			<p>Where’s YouBike  © ${year} Code: Jay  /  Design: KT</p>
+			<p>Where’s YouBike  © {year} Code: Jay  /  Design: KT</p>
 			<p><img src={ptxLogo} alt="ptx logo" /> 交通部PTX服務平臺</p>
 		</footer>
 	)
