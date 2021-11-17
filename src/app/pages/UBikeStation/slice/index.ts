@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { UBikeStopStore } from './type';
+import { UBikeStopStore, BikeStation, BikeAvailability } from './type';
 
 const initialState: UBikeStopStore = {
 	isFetching: false,
@@ -13,23 +13,23 @@ const uBikeStationSlice = createSlice({
 	name: 'uBikeStateion',
 	initialState,
 	reducers: {
-		getBikeStation(state, action: PayloadAction<{ city: string; top?: string }>) {
+		getBikeStation(state, action: PayloadAction<{ lat: number; lng: number; }>) {
 			state.isFetching = true;
 		},
-		getBikeStationSuccess(state, action: PayloadAction<any>) {
+		getBikeStationSuccess(state, action: PayloadAction<BikeStation[]>) {
 			state.isFetching = false;
-			console.log(action.payload);
+			state.bikeStation = action.payload;
 		},
 		getBikeStationFailed(state, action: PayloadAction<any>) {
 			state.isFetching = false;
 			console.warn(action.payload);
 		},
-		getBikeAvailability(state, action: PayloadAction<{ city: string; top?: string }>) {
+		getBikeAvailability(state, action: PayloadAction<{ lat: number; lng: number; }>) {
 			state.isFetching = true;
 		},
-		getBikeAvailabilitySuccess(state, action: PayloadAction<any>) {
+		getBikeAvailabilitySuccess(state, action: PayloadAction<BikeAvailability[]>) {
 			state.isFetching = false;
-			console.log(action.payload);
+			state.bikeAvailability = action.payload;
 		},
 		getBikeAvailabilityFailed(state, action: PayloadAction<any>) {
 			state.isFetching = false;

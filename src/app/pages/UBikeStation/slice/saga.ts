@@ -15,10 +15,10 @@ import {
 	getBikeStationSuccess,
 } from '.';
 
-function* fetchBikeStationSaga(action: PayloadAction<{ city: string; top?: string; }>) {
+function* fetchBikeStationSaga(action: PayloadAction<{ lat: number; lng: number; }>) {
 	try {
-		const { city, top } = action.payload;
-		const response: ApiResponseType = yield call(fetchBikeStation, city, top);
+		const { lat, lng } = action.payload;
+		const response: ApiResponseType = yield call(fetchBikeStation, lat, lng);
 		if (!response.success) {
 			throw response.data;
 		}
@@ -29,10 +29,10 @@ function* fetchBikeStationSaga(action: PayloadAction<{ city: string; top?: strin
 	}
 };
 
-function* fetchBikeAvailabilitySaga(action: PayloadAction<{ city: string; top?: string; }>) {
+function* fetchBikeAvailabilitySaga(action: PayloadAction<{ lat: number; lng: number; }>) {
 	try {
-		const { city, top } = action.payload;
-		const response: ApiResponseType = yield call(fetchBikeAvailability, city, top);
+		const { lat, lng } = action.payload;
+		const response: ApiResponseType = yield call(fetchBikeAvailability, lat, lng);
 		if (!response.success) {
 			throw response.data;
 		}

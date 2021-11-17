@@ -28,7 +28,6 @@ const GetAuthorizationHeader = () => {
 
 const fetchData = async (
 		url: string, 
-		query?: string,
 		data?: any, 
 		method?:string, 
 	) => {
@@ -38,7 +37,7 @@ const fetchData = async (
 			headers: GetAuthorizationHeader(),
 			method: method || 'GET',
 		};
-		const response = await fetch(`${url}${query}`, fetchOptions);
+		const response = await fetch(`${url}`, fetchOptions);
 		const { status } = response;
 		if (status !== 200) {
 			console.warn(response);
@@ -68,21 +67,16 @@ const queryFormat: (queryName: string, queryValue: string) => string = (queryNam
 	return queryValue ? query : ''
 };
 
-export const fetchBikeStation = async (
-	city: string,
-	top?: string,
-	) => {
-	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
-	const response = await fetchData(`${TOURISM_URL}/v2/Bike/Station/${city}${query}`);
+export const fetchBikeStation = async (lat: number, lng: number) => {
+	const query = `?${queryFormat('spatialFilter', `nearby(${lat}, ${lng}, 1000)`)}&${queryFormat('format', DATA_TYPE)}`;
+	console.log(query);
+	const response = await fetchData(`${TOURISM_URL}/v2/Bike/Station/NearBy${query}`);
 	return response;
 };
 
-export const fetchBikeAvailability = async (
-	city: string, 
-	top?: string,
-	) => {
-	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
-	const response = await fetchData(`${TOURISM_URL}/v2/Bike/Availability/${city}${query}`);
+export const fetchBikeAvailability = async (lat: number, lng: number) => {
+	const query = `?${queryFormat('spatialFilter', `nearby(${lat}, ${lng}, 1000)`)}&${queryFormat('format', DATA_TYPE)}`;
+	const response = await fetchData(`${TOURISM_URL}/v2/Bike/Availability/NearBy${query}`);
 	return response;
 };
 
@@ -90,7 +84,7 @@ export const fetchCyclingShape = async (
 	city: string, 
 	top?: string,
 	) => {
-	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
+	const query = `?${queryFormat('top', top || '')}&${queryFormat('format', DATA_TYPE)}`;
 	const response = await fetchData(`${TOURISM_URL}/v2/Cycling/Shape/${city}${query}`);
 	return response;
 };
@@ -99,7 +93,7 @@ export const fetchTourismScenicSpot = async (
 	city?: string, 
 	top?: string,
 	) => {
-	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
+	const query = `?${queryFormat('top', top || '')}&${queryFormat('format', DATA_TYPE)}`;
 	const response = await fetchData(`${TOURISM_URL}/v2/Tourism/ScenicSpot/${city}${query}`);
 	return response;
 };
@@ -108,7 +102,7 @@ export const fetchTourismRestaurant = async (
 	city?: string, 
 	top?: string,
 	) => {
-	const query = `?${queryFormat('top', top || '')}${queryFormat('format', DATA_TYPE)}`;
+	const query = `?${queryFormat('top', top || '')}&${queryFormat('format', DATA_TYPE)}`;
 	const response = await fetchData(`${TOURISM_URL}/v2/Tourism/Restaurant/${city}${query}`);
 	return response;
 };
