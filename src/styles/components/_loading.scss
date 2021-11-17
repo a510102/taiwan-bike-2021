@@ -1,6 +1,9 @@
 .loading {
 	width: 100%;
-	min-height: 500px;
+	flex: 1;
 	display: flex;
 	justify-content: center;
+	background: $gray-bg;
+	padding-top: 66px;
+	box-sizing: border-box;
 }

@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import type { RootState, AppDispatch } from '../store';
+import { selectPosition } from '../store/globalStore/selector';
 
-import { WindowWidth, Size } from '../types';
+import { WindowWidth, Size, CountDownType, GlobalParameterType } from '../types';
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
@@ -29,7 +30,7 @@ function distance(lat1: number, lon1: number, lat2: number, lon2: number, unit?:
 	}
 };
 
-export const useCountDown = (sec: number) => {
+export const useCountDown: (sec: number) => CountDownType = sec => {
 	const [countDownTime, setCountDownTime] = useState<number>(sec);
 	const [isStart, setIsStart] = useState<boolean>(false);
 
@@ -78,4 +79,12 @@ export const useMedia: () => Size = () => {
 		isPad,
 		isMobile,
 	};
-}
+};
+
+export const useGlobalParameter: () => GlobalParameterType = () => {
+	const position = useAppSelector(selectPosition);
+
+	return {
+		position,
+	}
+} 

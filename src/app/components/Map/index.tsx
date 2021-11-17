@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import L from 'leaflet';
 
@@ -5,19 +6,29 @@ import bikeIcon from '../../../images/icon/bike.png';
 
 import "leaflet/dist/leaflet.css";
 
-export function Map () {
+interface Props {
+	children: ReactNode;
+	center: {
+		lat: number;
+		lng: number;
+	}
+}
+
+export function Map (props: Props) {
+	const { children, center: {lat, lng} } = props;
 	return (
-		<MapContainer style={{ height: "450px", width: "100%" }} center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
+		<MapContainer 
+			style={{ height: "calc(100vh - 64px)", width: "100%" }} 
+			center={[lat, lng]} 
+			zoom={18}
+			maxZoom={18}
+			minZoom={15}
+		>
 		<TileLayer
 			attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 			url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 		/>
-		<Marker position={[51.505, -0.09]} icon={iconPerson}>
-			<Popup>
-				A pretty CSS3 popup. <br /> Easily customizable.
-			</Popup>
-		</Marker>
-		{/* <Polyline pathOptions={} /> */}
+		{children}
 	</MapContainer>
 	)
 }

@@ -1,0 +1,10 @@
+.bike-number {
+	text-align: center;
+	padding-top: 9px;
+	font-weight: 700;
+	@include fontSize(s15);
+
+	&.return {
+		color: $yellow;
+	}
+}

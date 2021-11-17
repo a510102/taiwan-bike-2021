@@ -8,3 +8,16 @@ export interface Size {
 	isPad: boolean;
 	isMobile: boolean;
 }
+
+export type CountDownType = {
+	countDownTime: number;
+	startCountDown: () => void;
+	stopCountDown: () => void;
+}
+
+export type GlobalParameterType = {
+	position: {
+		lat: number;
+		lng: number;
+	};
+}

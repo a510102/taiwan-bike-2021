@@ -12,5 +12,10 @@ html {
 @import './components/layout';
 @import './components/select';
 @import './components/loading';
+@import './components/map';
+@import './components/navigation';
+@import './components/mapIcon';
+@import './components/getPosition';
 
 @import './pages/home';
+@import './pages/bikeStation';
