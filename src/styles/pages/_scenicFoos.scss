@@ -1,0 +1,50 @@
+@import '../components/scenicFoodList';
+
+.scenic-spot-food {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+}
+
+.list-item {
+  width: 364px;
+  box-sizing: border-box;
+  padding: 12px 14.5px;
+  display: flex;
+  box-shadow: 0px 3px 4px 0px #0000001A;
+  margin: 9px;
+  border-radius: 6px;
+  background: $white;
+  cursor: pointer;
+
+  .item-img {
+    width: 119px;
+    height: 119px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .item-content{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .item-phone{
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+
+    img {
+      display:  inline-block;
+      margin-right: 8px;
+    }
+  }
+
+  .item-distance {
+    color: $yellow;
+    text-align: end;
+    margin-bottom: 6px;
+  }
+}

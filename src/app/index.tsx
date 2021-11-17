@@ -27,9 +27,9 @@ function App() {
               <Route index element={<Home />} />
               <Route path="bikeStop" element={<UBikeStation />} />
               <Route path="bikeRoad" element={<BikeRoad />} />
-              <Route path="scenicSpotAndFood" element={<ScenicSpotAndFood />} />
+              <Route path="scenicSpotAndFood/*" element={<ScenicSpotAndFood />} />
             </Route>
-            <Route element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </Provider>

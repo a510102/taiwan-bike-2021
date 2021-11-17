@@ -8,9 +8,9 @@ import { WindowWidth, Size, CountDownType, GlobalParameterType } from '../types'
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-function distance(lat1: number, lon1: number, lat2: number, lon2: number, unit?: string): number {
+export function distance(lat1: number, lon1: number, lat2: number, lon2: number, unit?: string): string {
 	if ((lat1 === lat2) && (lon1 === lon2)) {
-			return 0;
+			return '0';
 	}
 	else {
 			var radlat1 = Math.PI * lat1/180;
@@ -26,7 +26,7 @@ function distance(lat1: number, lon1: number, lat2: number, lon2: number, unit?:
 			dist = dist * 60 * 1.1515;
 			if (unit === "K" || !unit) { dist = dist * 1.609344 }
 			if (unit ==="N") { dist = dist * 0.8684 }
-			return dist;
+			return `${dist.toFixed(1)}km`;
 	}
 };
 
@@ -46,7 +46,7 @@ export const useCountDown: (sec: number) => CountDownType = sec => {
 				setTimeout(() => setCountDownTime(preCountDownTime => preCountDownTime -= 1), 1000); 
 			}
 		}
-	}, [countDownTime, isStart, stopCountDown]);
+	}, [countDownTime, isStart, stopCountDown, sec]);
 
 	return {
 		countDownTime,
