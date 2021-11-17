@@ -7,8 +7,8 @@ export function Banner() {
 		<div className="banner">
 			<img src={bikeIcon} alt="bike logo icon" />
 			<img src={titleIcon} alt="where Y bike" />
-			<p>{bannerHint.map(hint => (
-				<span>{hint}</span>
+			<p>{bannerHint.map((hint, index) => (
+				<span key={index}>{hint}</span>
 			))}</p>
 		</div>
 	);
