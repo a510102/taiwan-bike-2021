@@ -26,7 +26,7 @@ function App() {
             <Route path='/' element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="bikeStop" element={<UBikeStation />} />
-              <Route path="bikeRoad" element={<BikeRoad />} />
+              <Route path="bikeRoad/*" element={<BikeRoad />} />
               <Route path="scenicSpotAndFood/*" element={<ScenicSpotAndFood />} />
             </Route>
             <Route path="*" element={<NotFound />} />
