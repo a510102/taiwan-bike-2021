@@ -1,7 +1,14 @@
 .scenic-food-wrap {
   background: $gray-bg;
-  padding: 34px 90px;
   display: flex;
-  flex-wrap: wrap;
   flex: 1;
+}
+
+.scenic-food-list {
+  width: 1150px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 34px auto;
+  align-items: center;
+  justify-content: center;
 }

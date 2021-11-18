@@ -4,6 +4,7 @@ export type TourDefaultType = {
   Description: string;
   Phone: string;
   Address: string;
+  OpenTime: string;
   Picture: {
     PictureUrl1: string;
   };

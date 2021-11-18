@@ -69,7 +69,7 @@ const queryFormat: (queryName: string, queryValue: string) => string = (queryNam
 
 export const fetchBikeStation = async (lat: number, lng: number) => {
 	const query = `?${queryFormat('spatialFilter', `nearby(${lat}, ${lng}, 1000)`)}&${queryFormat('format', DATA_TYPE)}`;
-	console.log(query);
+
 	const response = await fetchData(`${TOURISM_URL}/v2/Bike/Station/NearBy${query}`);
 	return response;
 };
