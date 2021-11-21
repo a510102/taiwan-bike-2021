@@ -4,4 +4,4 @@ export const selectUBikeStation = ({ bikeStation }: RootState) => bikeStation.bi
 export const selectUBikeAvailability = ({ bikeStation }: RootState) => bikeStation.bikeAvailability;
 export const selectIsFetching = ({ bikeStation }: RootState) => bikeStation.isFetching;
 export const selectError = ({ bikeStation }: RootState) => bikeStation.error;
-
+export const selectFilterPosition = ({ bikeStation }: RootState) => bikeStation.filterPosition;

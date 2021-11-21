@@ -1,16 +1,23 @@
 footer {
 	width: 100%;
 	padding: 20px 40px;
-	text-align: end;
 	@include fontSize(s-12);
 	box-sizing: border-box;
 	margin-top: auto;
+
+	@include for-mobile {
+		padding: 20px 0;
+	}
 
 	p{
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
 		margin-bottom: 8px;
+
+		@include for-pad {
+			justify-content: center;
+		}
 		&:last-of-type {
 			margin-bottom: 0;
 		}

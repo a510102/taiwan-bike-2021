@@ -24,4 +24,8 @@ export interface ScrenicSpotAndFoodStore {
   isFetching: boolean;
   error: any;
   isScenicSpot: boolean;
+  position : {
+    lat: number;
+    lng: number;
+  }
 }

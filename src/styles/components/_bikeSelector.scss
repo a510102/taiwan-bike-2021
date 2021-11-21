@@ -4,6 +4,10 @@
 	border-radius: 50px;
 	background: $white;
 	height: 42px;
+	@include for-pad {
+		height: 56px;
+		background: $yellow;
+	}
 	.select-item {
 		padding: 0px 31px;
 		display: flex;
@@ -11,12 +15,20 @@
 		box-sizing: border-box;
 		height: 100%;
 		cursor: pointer;
+		@include for-pad {
+			flex: 1;
+			justify-content: center;
+		}
 
 		&.active {
 			background: $black;
 			border-radius: 50px;
 			color: $yellow;
 			cursor: default;
+			@include for-pad {
+				color: $white;
+				background: unset;
+			}
 		}
 		img {
 			display: inline-block;

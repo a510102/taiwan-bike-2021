@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import { ScenicFoodLayout } from './components/ScenicFoodLayout';
 import { ScenicFoodList } from './feature/ScenicFoodList';
@@ -11,6 +11,7 @@ import {
 	selectFoods,
 	selectIsScenicSpot,
 	selectIsFetching,
+	selectPosition,
 } from './slice/selector';
 
 export default function ScenicSpotAndFood() {
@@ -20,12 +21,14 @@ export default function ScenicSpotAndFood() {
   const isScenicSpot = useAppSelector(selectIsScenicSpot);
 	const isFetching = useAppSelector(selectIsFetching);
   const { position: { lat, lng } } = useGlobalParameter();
-	const { name } = useParams();
+	const currentPosition = useAppSelector(selectPosition);
 
 	useEffect(() => {
-    dispatch(getScrenicSpot({ lat, lng }));
-    dispatch(getScrenicFood({ lat, lng }));
-  }, [lat, lng, dispatch]);
+		if (currentPosition.lat !== lat || currentPosition.lng !== lng) {
+			dispatch(getScrenicSpot({ lat, lng }));
+			dispatch(getScrenicFood({ lat, lng }));
+		}
+  }, [lat, lng, dispatch, currentPosition]);
 
 	return (
 		<Routes>
@@ -51,7 +54,7 @@ export default function ScenicSpotAndFood() {
 					} 
 				/>
 				<Route
-					path=":id" 
+					path=":id/*" 
 					element={
 						<ScenicFoodDetail
 							scenicSpots={scenicSpots}
@@ -60,7 +63,6 @@ export default function ScenicSpotAndFood() {
 						/>
 					}
 				/>
-				<Route path=":id/map" />
 			</Route>
 		</Routes>
 	);

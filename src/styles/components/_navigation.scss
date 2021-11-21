@@ -5,4 +5,14 @@ header {
 	justify-content: space-between;
 	padding: 0 90px;
 	box-shadow: 0px 3px 4px 0px #0000001A;
+	box-sizing: border-box;
+
+	@include for-pad {
+		padding: 20px 16px;
+		
+		p {
+			flex: 1;
+			text-align: center;
+		}
+	}
 }

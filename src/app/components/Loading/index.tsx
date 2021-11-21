@@ -1,23 +1,9 @@
-import { useLottie } from 'lottie-react'
+import { Bike } from "../AnimationIcon";
 
-import loadingJson from '../../../images/json/youbike.json';
-
-export function Loading() {
-	const lottieStyle = {
-    width: '71px',
-		height: '50px',
-  };
-
-	const lottieOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: loadingJson,
-  };
-	const { View } = useLottie(lottieOptions, lottieStyle);
-	
+export function Loading() {	
 	return (
 		<div className="loading">
-			{View}
+			<Bike />
 		</div>
 	);
 };

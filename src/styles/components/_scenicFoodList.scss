@@ -2,6 +2,10 @@
   background: $gray-bg;
   display: flex;
   flex: 1;
+  @include for-pad {
+    overflow: auto;
+    max-height: calc(100vh - 120px);
+  }
 }
 
 .scenic-food-list {
@@ -11,4 +15,14 @@
   margin: 34px auto;
   align-items: center;
   justify-content: center;
+
+  @include for-pad {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+
+  @include for-mobile {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0 25px;
+  }
 }

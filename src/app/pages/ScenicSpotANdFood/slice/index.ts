@@ -8,6 +8,10 @@ const initialState: ScrenicSpotAndFoodStore = {
   isFetching: false,
   error: null,
   isScenicSpot: true,
+  position: {
+    lat: 0,
+    lng: 0,
+  },
 };
 
 const screnicSpotAndFoodSlice = createSlice({
@@ -16,6 +20,7 @@ const screnicSpotAndFoodSlice = createSlice({
   reducers: {
     getScrenicSpot(state, action: PayloadAction<{ lat: number; lng: number; }>) {
       state.isFetching = true;
+      state.position = action.payload;
     },
     getScrenicSpotSuccess(state, action: PayloadAction<ScenicSpot[]>) {
       state.isFetching = false;

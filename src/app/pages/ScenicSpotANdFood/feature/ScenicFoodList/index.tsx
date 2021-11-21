@@ -1,8 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 
+import noImag from '../../../../../images/no-img/list-no-img.png';
+import noImagMobile from '../../../../../images/no-img/list-no-img-mobile.png';
+
 import {
   useGlobalParameter,
   distance,
+  useMedia,
 } from '../../../../../helpers';
 import { TourDefaultType, ScenicSpot } from '../../slice/type';
 
@@ -21,6 +25,7 @@ export function ScenicFoodList(props: Props) {
   const navigation = useNavigate();
   const { scenicSpots, foods, isScenicSpot, isFetching } = props;
   const { position: { lat, lng } } = useGlobalParameter();
+  const { isMobile } = useMedia();
 
   return (
     <>
@@ -32,7 +37,7 @@ export function ScenicFoodList(props: Props) {
               (isScenicSpot ? scenicSpots : foods).map((item, index) => (
                 <div className="list-item" key={index} onClick={() => navigation(`${item.ID}`)}>
                   <div className="item-img">
-                    {item.Picture.PictureUrl1 && <img src={item.Picture.PictureUrl1} alt="pic" />}
+                    <img src={item.Picture.PictureUrl1 || isMobile ? noImagMobile : noImag} alt="pic" />
                   </div>
                   <div className="item-content">
                     <p className="item-distance">{distance(lat, lng, item.Position.PositionLat, item.Position.PositionLon)}</p>

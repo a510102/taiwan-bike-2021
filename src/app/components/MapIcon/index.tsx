@@ -1,17 +1,18 @@
 import { FC } from 'react';
-import { Marker } from 'react-leaflet'
+import { Marker, Circle } from 'react-leaflet'
 import L from 'leaflet';
+
+import { Postion } from '../../../types';
 
 import bikeStationIcon from '../../../images/icon/bike-station.png';
 import bikeStationReturnIcon from '../../../images/icon/bike-station-return.png';
 import locationIcon from '../../../images/icon/location.png';
+import bikeStartIcon from '../../../images/icon/bike-road-start.png';
+import bikeEndIcon from '../../../images/icon/bike-road-end.png';
+import bikeStationZero from '../../../images/icon/zero.png';
 
-interface BikeStationProps {
+interface BikeStationProps extends Postion {
 	bikeNumber: number;
-	position: {
-		lat: number;
-		lng: number;
-	};
 	isRent: boolean;
 };
 
@@ -21,7 +22,7 @@ export const BikeStation: FC<BikeStationProps> = ({
 	isRent,
 }) => {
 	const bikeStation = L.icon({
-		iconUrl: isRent ? bikeStationIcon : bikeStationReturnIcon,
+		iconUrl: bikeNumber === 0 ? bikeStationZero : isRent ? bikeStationIcon : bikeStationReturnIcon,
 		iconSize: [36, 50],
 	});
 	const bikeContent = L.divIcon({
@@ -44,16 +45,7 @@ export const BikeStation: FC<BikeStationProps> = ({
 	);
 };
 
-interface TourStopProps {
-	address: string;
-	position: {
-		lat: number;
-		lng: number;
-	};
-};
-
-export const TourStop: FC<TourStopProps> = ({
-	address,
+export const TourStop: FC<Postion> = ({
 	position: {
 		lat,
 		lng,
@@ -61,23 +53,66 @@ export const TourStop: FC<TourStopProps> = ({
 }) => {
 	const tourStopIcon = L.icon({
 		iconUrl: locationIcon,
-		iconSize: [24, 24],
+		iconSize: [60, 60],
 	});
-	const tourStopContent = L.divIcon({
-		html: address || '',
-		className: 'tour-stop-icon-content',
-		iconSize: [48, 100],
-	});
+
 	return (
-		<>
-			<Marker
-				icon={tourStopIcon}
-				position={[lat, lng]}
-			/>
-			<Marker
-				icon={tourStopContent}
-				position={[lat, lng]}
-			/>
-		</>
+		<Marker
+			icon={tourStopIcon}
+			position={[lat, lng]}
+		/>
 	);
-}
+};
+
+export const BikeRoadStart: FC<Postion> = ({
+	position: {
+		lat,
+		lng,
+	},
+}) => {
+	const Icon = L.icon({
+		iconUrl: bikeStartIcon,
+		iconSize: [36, 50],
+	});
+
+	return (
+		<Marker
+			icon={Icon}
+			position={[lat, lng]}
+		/>
+	);
+};
+
+export const BikeRoadEnd: FC<Postion> = ({
+	position: {
+		lat,
+		lng,
+	},
+}) => {
+	const Icon = L.icon({
+		iconUrl: bikeEndIcon,
+		iconSize: [36, 50],
+	});
+
+	return (
+		<Marker
+			icon={Icon}
+			position={[lat, lng]}
+		/>
+	);
+};
+
+export const Gps: FC<Postion> = ({
+	position: {
+		lat,
+		lng,
+	},
+}) => {
+	return (
+		<Circle
+			center={{lat, lng}} 
+			pathOptions={{ fillColor: 'black' }}
+			radius={50}
+		/>
+	);
+};

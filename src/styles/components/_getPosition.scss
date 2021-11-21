@@ -11,6 +11,10 @@
 	z-index: 999;
 	padding: 0;
 	background: none;
+	@include for-pad {
+		bottom: 80px;
+		right: 22px;
+	}
 	img {
 		width: 100%;
 	}

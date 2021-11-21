@@ -1,3 +1,5 @@
+import { Postion } from "../../../../types"
+
 export type BikeType = {
 	StationUID: string;
 	StationID: string;
@@ -23,6 +25,14 @@ export interface BikeAvailability extends BikeType {
 export interface UBikeStopStore {
 	isFetching: boolean;
 	error: any;
-	bikeStation: BikeStation[],
-	bikeAvailability: BikeAvailability[],
+	bikeStation: BikeStation[];
+	bikeAvailability: BikeAvailability[];
+	postion: {
+		lat: number;
+		lng: number;
+	};
+	filterPosition?: {
+		lat: number;
+		lng: number;
+	};
 }

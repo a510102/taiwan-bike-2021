@@ -1,8 +1,6 @@
-import { ReactNode } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
+import { ReactNode, useEffect, useRef } from 'react';
+import { MapContainer, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
-
-import bikeIcon from '../../../images/icon/bike.png';
 
 import "leaflet/dist/leaflet.css";
 
@@ -11,18 +9,38 @@ interface Props {
 	center: {
 		lat: number;
 		lng: number;
-	}
+	};
+	filterPostion?: {
+		lat: number;
+		lng: number;
+	};
+	height?: string; 
 }
 
 export function Map (props: Props) {
-	const { children, center: {lat, lng} } = props;
+	const {
+		children, 
+		center: {lat, lng},
+		filterPostion,
+		height = "calc(100vh - 64px)",
+	} = props;
+	const mapRef = useRef<any>();
+
+	useEffect(() => {
+		if (filterPostion && mapRef) {
+			const latLng = L.latLng(filterPostion.lat, filterPostion.lng);
+			mapRef.current.setView(latLng, 16);
+		}
+	}, [filterPostion, mapRef]);
+
 	return (
-		<MapContainer 
-			style={{ height: "calc(100vh - 64px)", width: "100%" }} 
+		<MapContainer
+			style={{ height: height , width: "100%" }} 
 			center={[lat, lng]} 
-			zoom={18}
+			zoom={16}
 			maxZoom={18}
 			minZoom={15}
+			whenCreated={(map: any) => mapRef.current = map}
 		>
 		<TileLayer
 			attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -31,14 +49,4 @@ export function Map (props: Props) {
 		{children}
 	</MapContainer>
 	)
-}
-
-const iconPerson = new L.Icon({
-  iconUrl: bikeIcon,
-  iconSize: [38, 95],
-  iconAnchor: [22, 94],
-  popupAnchor: [-3, -76],
-  // shadowUrl: 'my-icon-shadow.png',
-  shadowSize: [68, 95],
-  shadowAnchor: [22, 94]
-});
+};

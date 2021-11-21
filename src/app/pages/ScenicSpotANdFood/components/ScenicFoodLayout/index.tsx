@@ -1,7 +1,9 @@
 import { Outlet, useMatch, useParams } from 'react-router-dom';
+
 import { Navigation } from '../../../../components/Navigation';
 import { ScenicSpot, TourDefaultType } from '../../slice/type';
 import { TypeSelector } from '../TypeSelector';
+import { useMedia } from '../../../../../helpers';
 
 interface Props {
   foods: TourDefaultType[];
@@ -15,6 +17,7 @@ export function ScenicFoodLayout(props: Props) {
     scenicSpots,
     isScenicSpot,
   } = props;
+  const { isMobile, isPad } = useMedia();
   const isMatchScenicFood = useMatch('/scenicSpotAndFood');
   const { id } = useParams();
   const currtDetail = (isScenicSpot ? scenicSpots : foods)
@@ -23,9 +26,13 @@ export function ScenicFoodLayout(props: Props) {
   return (
     <main className="scenic-spot-food">
       <Navigation>
-        {isMatchScenicFood ? <TypeSelector /> : <p>{currtDetail?.Name}</p>}
+        {isMatchScenicFood 
+          ? (!isMobile && !isPad) && <TypeSelector /> 
+          : <p>{currtDetail?.Name}</p>
+        }
       </Navigation>
       <Outlet />
+      {isMatchScenicFood && (isMobile || isPad) && <TypeSelector />}
     </main>
   );
 }

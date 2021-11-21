@@ -6,6 +6,10 @@
   flex-direction: column;
   height: 100%;
   flex: 1;
+
+  @include for-pad {
+    height: 100vh;
+  }
 }
 
 .list-item {
@@ -20,11 +24,24 @@
   background: $white;
   cursor: pointer;
 
+  @include for-mobile {
+    width: 301px;
+
+    &:last-of-type {
+      margin-bottom: 40px;
+    }
+  }
+
   .item-img {
     width: 119px;
     height: 119px;
     display: inline-block;
     margin-right: 10px;
+
+    @include for-mobile {
+      width: 75px;
+      height: 75px;
+    }
   }
 
   .item-content{

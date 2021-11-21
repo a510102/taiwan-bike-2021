@@ -1,6 +1,6 @@
 export enum WindowWidth {
 	Pad = 768,
-	Mobile = 375,
+	Mobile = 400,
 }
 
 export interface Size {
@@ -15,9 +15,11 @@ export type CountDownType = {
 	stopCountDown: () => void;
 }
 
-export type GlobalParameterType = {
+export type Postion = {
 	position: {
 		lat: number;
 		lng: number;
 	};
 }
+
+export interface GlobalParameterType extends Postion {};

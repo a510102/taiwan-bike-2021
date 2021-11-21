@@ -7,6 +7,11 @@ const initialState: UBikeStopStore = {
 	error: null,
 	bikeAvailability: [],
 	bikeStation: [],
+	postion: {
+		lat: 0,
+		lng: 0,
+	},
+	filterPosition: undefined,
 };
 
 const uBikeStationSlice = createSlice({
@@ -14,6 +19,13 @@ const uBikeStationSlice = createSlice({
 	initialState,
 	reducers: {
 		getBikeStation(state, action: PayloadAction<{ lat: number; lng: number; }>) {
+			const { lat, lng } = action.payload;
+			if (state.postion.lat !== lat || state.postion.lng !== lng) {
+				state.bikeStation = [];
+				state.bikeAvailability = [];
+				state.postion.lng = lng;
+				state.postion.lat = lat;
+			}
 			state.isFetching = true;
 		},
 		getBikeStationSuccess(state, action: PayloadAction<BikeStation[]>) {
@@ -35,6 +47,13 @@ const uBikeStationSlice = createSlice({
 			state.isFetching = false;
 			console.warn(action.payload);
 		},
+		setFilterPostion(state, action: PayloadAction<{ lat: number; lng: number }>) {
+			const { lat, lng } = action.payload;
+			state.filterPosition = { lat, lng };
+		},
+		resetFilterPostion(state) {
+			state.filterPosition = undefined;
+		},
 	},
 });
 
@@ -45,6 +64,8 @@ export const {
 	getBikeStation,
 	getBikeStationFailed,
 	getBikeStationSuccess,
+	setFilterPostion,
+	resetFilterPostion,
 } = uBikeStationSlice.actions;
 
 export default uBikeStationSlice.reducer;
