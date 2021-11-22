@@ -1,0 +1,68 @@
+.bike-road-list-wrap{
+  background: $gray-bg;
+  display: flex;
+  flex: 1;
+
+  .no-data {
+    margin: 58px 89px;
+    width: 1150px;
+    @include fontSize(s17);
+    color: $gray-dark;
+    
+    @include for-mobile {
+      margin: 32px 25px;
+    }
+  }
+
+  @include for-pad {
+    width: 100%;
+  }
+
+}
+
+.bike-road-list {
+  width: 1150px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 34px auto;
+  align-items: center;
+  justify-content: center;
+
+  @include for-pad {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 16px;
+    margin-top: 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @include for-mobile {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .list-item {
+    height: 109px;
+    padding: 12px;
+    @include fontSize(s13);
+    color: $gray-dark;
+    display: flex;
+    flex-wrap: wrap;
+    p {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .item-title {
+    @include fontSize(s16);
+    line-height: 24px;
+    color: $black;
+    margin-bottom: 11.5px;
+    width: 100%;
+  }
+  .item-distance {
+    color: $gray-dark;
+    width: 155px;
+    margin-right: auto;
+  }
+}

@@ -1,2 +1,27 @@
-@import './setting/reset.scss';
-@import './setting/mixin.scss';
+@import './setting/reset';
+@import './setting/varable';
+@import './setting/mixin';
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap');
+
+html {
+	font-family: 'Noto Sans TC', 'Roboto',sans-serif;
+	@include fontSize(s16);
+
+	@include for-mobile {
+		height: calc(var(--vh, 1vh)* 100);;
+	}
+}
+
+@import './components/layout';
+@import './components/select';
+@import './components/loading';
+@import './components/map';
+@import './components/navigation';
+@import './components/mapIcon';
+@import './components/getPosition';
+
+@import './pages/home';
+@import './pages/bikeStation';
+@import './pages/scenicFoos';
+@import './pages/bikeRoad';

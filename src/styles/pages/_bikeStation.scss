@@ -1,0 +1,8 @@
+.bike-station {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+@import '../components/bikeSelector';
+@import '../components/bikeSearch';

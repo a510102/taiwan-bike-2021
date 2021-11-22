@@ -1,0 +1,21 @@
+.get-position-btn{
+	position: fixed;
+	bottom: 40px;
+	right: 87px;
+	width: 62px;
+	height: 62px;
+	border: none;
+	outline: none;
+	border-radius: 50%;
+	cursor: pointer;
+	z-index: 999;
+	padding: 0;
+	background: none;
+	@include for-pad {
+		bottom: 80px;
+		right: 22px;
+	}
+	img {
+		width: 100%;
+	}
+}

@@ -1,6 +1,6 @@
 $viewPoint: (
   pad: 768px,
-  mobile: 375px,
+  mobile: 400px,
 );
 
 @mixin for-pad {
@@ -13,4 +13,8 @@ $viewPoint: (
   @media screen and (max-width: map-get($viewPoint, "mobile")) {
     @content;
   }
+}
+
+@mixin fontSize($size) {
+  font-size: map-get($font, $size);
 }

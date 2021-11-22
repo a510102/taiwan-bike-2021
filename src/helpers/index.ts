@@ -1,14 +1,36 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux';
 import type { RootState, AppDispatch } from '../store';
+import { selectPosition } from '../store/globalStore/selector';
 
-import { WindowWidth, Size } from '../types';
+import { WindowWidth, Size, CountDownType, GlobalParameterType } from '../types';
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
+export function distance(lat1: number, lon1: number, lat2: number, lon2: number, unit?: string): string {
+	if ((lat1 === lat2) && (lon1 === lon2)) {
+			return '0';
+	}
+	else {
+			var radlat1 = Math.PI * lat1/180;
+			var radlat2 = Math.PI * lat2/180;
+			var theta = lon1-lon2;
+			var radtheta = Math.PI * theta/180;
+			var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+			if (dist > 1) {
+					dist = 1;
+			}
+			dist = Math.acos(dist);
+			dist = dist * 180/Math.PI;
+			dist = dist * 60 * 1.1515;
+			if (unit === "K" || !unit) { dist = dist * 1.609344 }
+			if (unit ==="N") { dist = dist * 0.8684 }
+			return `${dist.toFixed(1)}km`;
+	}
+};
 
-export const useCountDown = (sec: number) => {
+export const useCountDown: (sec: number) => CountDownType = sec => {
 	const [countDownTime, setCountDownTime] = useState<number>(sec);
 	const [isStart, setIsStart] = useState<boolean>(false);
 
@@ -24,7 +46,7 @@ export const useCountDown = (sec: number) => {
 				setTimeout(() => setCountDownTime(preCountDownTime => preCountDownTime -= 1), 1000); 
 			}
 		}
-	}, [countDownTime, isStart, stopCountDown]);
+	}, [countDownTime, isStart, stopCountDown, sec]);
 
 	return {
 		countDownTime,
@@ -57,4 +79,12 @@ export const useMedia: () => Size = () => {
 		isPad,
 		isMobile,
 	};
-}
+};
+
+export const useGlobalParameter: () => GlobalParameterType = () => {
+	const position = useAppSelector(selectPosition);
+
+	return {
+		position,
+	}
+} 
