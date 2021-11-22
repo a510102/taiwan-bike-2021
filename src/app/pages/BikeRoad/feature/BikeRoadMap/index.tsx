@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Polyline } from 'react-leaflet';
 
 import { MapContainer } from "../../../../components/MapContainer";
@@ -13,6 +14,7 @@ interface Props {
 export function BikeRoadMap(props: Props) {
   const { id } = useParams();
   const { bikeRoadList } = props;
+  const navigation = useNavigate();
   const currentBikeRoad = bikeRoadList
     .find((bikeRoad, index) => index === Number(id));
   const roadPosition: any[][] = currentBikeRoad ? currentBikeRoad.Geometry
@@ -22,7 +24,13 @@ export function BikeRoadMap(props: Props) {
     .replaceAll('(', '')
     .split(',')
     .map(item => item.split(' ').reverse().map(item => Number(item))) : [];
-	const balckOption = {color: 'black'};
+  const blackOption = {color: 'black'};
+
+  useEffect(() => {
+    if (bikeRoadList.length === 0) {
+      navigation('/');
+    }
+  }, [bikeRoadList]);
 
   return (
     <>
@@ -30,7 +38,7 @@ export function BikeRoadMap(props: Props) {
         <MapContainer>
           <Map center={{lat: roadPosition[0][0], lng: roadPosition[0][1]}}>
             <Polyline
-              pathOptions={balckOption}
+              pathOptions={blackOption}
               positions={roadPosition}
             />
             <BikeRoadStart 

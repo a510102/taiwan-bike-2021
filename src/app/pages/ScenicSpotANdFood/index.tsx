@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 import { ScenicFoodLayout } from './components/ScenicFoodLayout';
 import { ScenicFoodList } from './feature/ScenicFoodList';
@@ -31,39 +32,44 @@ export default function ScenicSpotAndFood() {
   }, [lat, lng, dispatch, currentPosition]);
 
 	return (
-		<Routes>
-			<Route 
-				path="/" 
-				element={
-					<ScenicFoodLayout
-						foods={foods}
-						scenicSpots={scenicSpots} 
-						isScenicSpot={isScenicSpot}
-					/>
-				}
-			>
+		<>
+			<Helmet>
+				<title>U Bike - Restaurant and Foods</title>
+			</Helmet>
+			<Routes>
 				<Route 
-					index 
+					path="/" 
 					element={
-						<ScenicFoodList
+						<ScenicFoodLayout
 							foods={foods}
 							scenicSpots={scenicSpots} 
 							isScenicSpot={isScenicSpot}
-							isFetching={isFetching}
-						/>
-					} 
-				/>
-				<Route
-					path=":id/*" 
-					element={
-						<ScenicFoodDetail
-							scenicSpots={scenicSpots}
-							foods={foods}
-							isScenicSpot={isScenicSpot}
 						/>
 					}
-				/>
-			</Route>
-		</Routes>
+				>
+					<Route 
+						index 
+						element={
+							<ScenicFoodList
+								foods={foods}
+								scenicSpots={scenicSpots} 
+								isScenicSpot={isScenicSpot}
+								isFetching={isFetching}
+							/>
+						} 
+					/>
+					<Route
+						path=":id/*" 
+						element={
+							<ScenicFoodDetail
+								scenicSpots={scenicSpots}
+								foods={foods}
+								isScenicSpot={isScenicSpot}
+							/>
+						}
+					/>
+				</Route>
+			</Routes>
+		</>
 	);
 }

@@ -7,6 +7,10 @@
 html {
 	font-family: 'Noto Sans TC', 'Roboto',sans-serif;
 	@include fontSize(s16);
+
+	@include for-mobile {
+		height: calc(var(--vh, 1vh)* 100);;
+	}
 }
 
 @import './components/layout';

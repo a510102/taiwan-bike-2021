@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Route, Routes } from 'react-router-dom'; 
+import { Helmet } from "react-helmet-async";
 
 import { getBikeRoad } from "./slice";
 import { selectBikeRoads, selectCity, selectIsFetching } from "./slice/selector";
@@ -20,11 +21,16 @@ export default function BikeRoad() {
 	}, [selectedCity, dispatch]);
 
 	return (
+		<>
+		<Helmet>
+			<title>U Bike - Bike Road</title>
+		</Helmet>
 		<Routes>
 			<Route path="/" element={<BikeRoadLayout bikeRoadList={bikeRoadList} />}>
 				<Route index element={<BikeRoadList bikeRoadList={bikeRoadList} isFetching={isFetching} />} />
 				<Route path=":id" element={<BikeRoadMap bikeRoadList={bikeRoadList} />} />
 			</Route>
 		</Routes>
+		</>
 	);
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 import { Navigation } from '../../components/Navigation';
 import { Map } from '../../components/Map';
@@ -85,53 +86,64 @@ export default function UBikeStation() {
 	}, [filterPostion]);
 
 	return (
-		<main className="bike-station">
-			<Navigation>
-				{(!isMobile && !isPad) && (
+		<>
+			<Helmet>
+				<title>U Bike - Bike Station</title>
+			</Helmet>
+			<main className="bike-station">
+				<Navigation>
+					{(!isMobile && !isPad) && (
+						<BikeSelector
+							isRent={isRent}
+							handleChange={toggleIsRent}
+						/>
+					)}
+				</Navigation>
+				{bikeIsFetching && bikeStations.length === 0 ? (
+					<Loading /> ) : (
+					<MapContainer>
+						<GetPosition />
+						<BikeSearch
+							bikeList={bikeStations}
+							handleChangeFilter={handleChangeFilter}
+						/>
+						<Map
+							center={{lat, lng}}
+							filterPostion={filterPostion}
+							height={
+								isMobile 
+									? "calc((var(--vh, 1vh)* 100) - 120px)" 
+									: isPad 
+										? "calc(100vh - 120px)" 
+										: undefined
+							}
+						>
+							{
+								bikeStations.map((bikeStation) => {
+									const currentAvailability = bikeAvailabilities.find(availability => availability.StationUID === bikeStation.StationUID);
+									const rentBikeNumber = currentAvailability?.AvailableRentBikes || 0;
+									const returnBikeNumber = currentAvailability?.AvailableReturnBikes || 0;
+									return (
+										<BikeStation 
+											key={bikeStation.StationID}
+											bikeNumber={isRent ? rentBikeNumber : returnBikeNumber}
+											position= {{lat: bikeStation.StationPosition.PositionLat , lng: bikeStation.StationPosition.PositionLon}}
+											isRent={isRent}
+										/>
+									)
+								})
+							}
+							<Gps position={{lat, lng}} />
+						</Map>
+					</MapContainer>
+				)}
+				{(isMobile || isPad) && (
 					<BikeSelector
 						isRent={isRent}
-						handleChange={toggleIsRent}
+						handleChange={toggleIsRent} 
 					/>
 				)}
-			</Navigation>
-			{bikeIsFetching && bikeStations.length === 0 ? (
-				<Loading /> ) : (
-				<MapContainer>
-					<GetPosition />
-					<BikeSearch
-						bikeList={bikeStations}
-						handleChangeFilter={handleChangeFilter}
-					/>
-					<Map
-						center={{lat, lng}}
-						filterPostion={filterPostion}
-						height={(isMobile || isPad) ? "calc(100vh - 120px)" : undefined}
-					>
-						{
-							bikeStations.map((bikeStation) => {
-								const currentAvailability = bikeAvailabilities.find(availability => availability.StationUID === bikeStation.StationUID);
-								const rentBikeNumber = currentAvailability?.AvailableRentBikes || 0;
-								const returnBikeNumber = currentAvailability?.AvailableReturnBikes || 0;
-								return (
-									<BikeStation 
-										key={bikeStation.StationID}
-										bikeNumber={isRent ? rentBikeNumber : returnBikeNumber}
-										position= {{lat: bikeStation.StationPosition.PositionLat , lng: bikeStation.StationPosition.PositionLon}}
-										isRent={isRent}
-									/>
-								)
-							})
-						}
-						<Gps position={{lat, lng}} />
-					</Map>
-				</MapContainer>
-			)}
-			{(isMobile || isPad) && (
-				<BikeSelector
-					isRent={isRent}
-					handleChange={toggleIsRent} 
-				/>
-			)}
-		</main>
+			</main>
+		</>
 	);
 }

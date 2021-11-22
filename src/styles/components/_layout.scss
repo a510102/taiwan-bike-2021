@@ -3,4 +3,8 @@
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+
+	@include for-mobile {
+		min-height: calc(var(--vh, 1vh)* 100);;
+	}
 }
