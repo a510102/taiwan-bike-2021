@@ -30,6 +30,7 @@
 
   @include for-mobile {
     width: 301px;
+    margin: 0 auto 9px;
 
     &:last-of-type {
       margin-bottom: 40px;
